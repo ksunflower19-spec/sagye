@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>김선화</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f2eb;
+    --cream: #f0ead8;
+    --lime: #c8f43a;
+    --lime-dark: #a8d420;
+    --orange: #ff5c35;
+    --blue: #1a1aff;
+    --mid: #3a3a3a;
+    --border: rgba(245,242,235,0.15);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: crosshair;
+  }
+
+  a { color: inherit; text-decoration: none; }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.25rem 2.5rem;
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px);
+    background: rgba(10,10,10,0.8);
+  }
+  .nav-logo {
+    font-family: 'Space Mono', monospace;
+    font-size: 1rem; font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--lime);
+  }
+  .nav-links { display: flex; gap: 2rem; }
+  .nav-links a {
+    font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase;
+    opacity: 0.6; transition: opacity 0.2s;
+  }
+  .nav-links a:hover { opacity: 1; }
+  .nav-cta {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem; font-weight: 700;
+    padding: 0.5rem 1.25rem;
+    background: var(--lime); color: var(--black);
+    border: none; cursor: crosshair;
+    letter-spacing: 0.08em;
+    transition: transform 0.15s, background 0.15s;
+    display: inline-block;
+  }
+  .nav-cta:hover { background: var(--lime-dark); transform: translate(-2px,-2px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 70% at 70% 40%, rgba(200,244,58,0.06) 0%, transparent 60%);
+    pointer-events: none;
+  }
+  .hero-left {
+    padding: 5rem 3rem 4rem 2.5rem;
+    display: flex; flex-direction: column; justify-content: center;
+    border-right: 1px solid var(--border);
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--lime); margin-bottom: 2rem;
+  }
+  .hero-badge span {
+    display: inline-block; width: 6px; height: 6px;
+    border-radius: 50%; background: var(--lime);
+    animation: blink 1.4s ease-in-out infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
+
+  .hero-title {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(3rem, 7vw, 5.5rem);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+  .hero-title .accent { color: var(--lime); display: block; }
+  .hero-title .stroke {
+    -webkit-text-stroke: 1px var(--white);
+    color: transparent;
+  }
+
+  .hero-desc {
+    font-size: 1rem; line-height: 1.7; opacity: 0.65;
+    max-width: 420px; margin-bottom: 3rem;
+  }
+
+  .hero-cta-group { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+  .btn-primary {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem; font-weight: 700; letter-spacing: 0.06em;
+    padding: 1rem 2rem;
+    background: var(--lime); color: var(--black);
+    border: 2px solid var(--lime);
+    cursor: crosshair;
+    transition: transform 0.15s, box-shadow 0.15s;
+    display: inline-block;
+  }
+  .btn-primary:hover { transform: translate(-3px,-3px); box-shadow: 3px 3px 0 var(--lime-dark); }
+  .btn-secondary {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.85rem; letter-spacing: 0.06em;
+    padding: 1rem 2rem;
+    background: transparent; color: var(--white);
+    border: 1px solid var(--border);
+    cursor: crosshair;
+    transition: border-color 0.2s, color 0.2s;
+    display: inline-block;
+  }
+  .btn-secondary:hover { border-color: var(--white); }
+
+  .hero-right {
+    padding: 5rem 2.5rem 4rem;
+    display: flex; flex-direction: column; justify-content: center;
+    gap: 1px;
+  }
+  .stat-block {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: flex-end;
+  }
+  .stat-block:first-child { border-top: 1px solid var(--border); }
+  .stat-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 3.5rem; font-weight: 700;
+    line-height: 1; color: var(--lime);
+  }
+  .stat-label { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.5; }
+  .stat-sub { font-size: 0.85rem; opacity: 0.5; text-align: right; }
+
+  .scroll-hint {
+    position: absolute; bottom: 2rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em;
+    text-transform: uppercase; opacity: 0.35;
+    animation: fadeUpDown 2s ease-in-out infinite;
+  }
+  @keyframes fadeUpDown { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+  .scroll-line { width: 1px; height: 40px; background: var(--white); opacity: 0.3; }
+
+  /* ── MARQUEE ── */
+  .marquee-wrap {
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    overflow: hidden; padding: 1rem 0;
+    background: rgba(200,244,58,0.04);
+  }
+  .marquee-track {
+    display: flex; gap: 0;
+    animation: scroll 20s linear infinite;
+    white-space: nowrap;
+  }
+  .marquee-track span {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase;
+    padding: 0 2.5rem; opacity: 0.5;
+  }
+  .marquee-track span.highlight { color: var(--lime); opacity: 1; }
+  @keyframes scroll { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 2.5rem; border-bottom: 1px solid var(--border); }
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--lime); margin-bottom: 1rem; opacity: 0.9;
+  }
+  .section-title {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(1.8rem, 4vw, 3rem);
+    font-weight: 700; line-height: 1.1;
+    margin-bottom: 1rem;
+  }
+
+  /* ── WHAT ── */
+  .what-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0; margin-top: 4rem;
+  }
+  .what-card {
+    padding: 2.5rem;
+    border: 1px solid var(--border);
+    border-right: none; border-bottom: none;
+    position: relative; overflow: hidden;
+    transition: background 0.3s;
+  }
+  .what-card:nth-child(2n) { border-right: 1px solid var(--border); }
+  .what-card:nth-child(3), .what-card:nth-child(4) { border-bottom: 1px solid var(--border); }
+  .what-card:hover { background: rgba(200,244,58,0.04); }
+  .what-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 3rem; font-weight: 700;
+    color: var(--lime); opacity: 0.15;
+    position: absolute; top: 1.5rem; right: 1.5rem;
+    line-height: 1;
+  }
+  .what-icon { font-size: 1.5rem; margin-bottom: 1rem; }
+  .what-card h3 {
+    font-size: 1.1rem; font-weight: 700;
+    margin-bottom: 0.75rem; letter-spacing: -0.02em;
+  }
+  .what-card p { font-size: 0.875rem; line-height: 1.7; opacity: 0.55; }
+
+  /* ── SCHEDULE ── */
+  .schedule { background: var(--black); }
+  .days-grid {
+    display: grid; grid-template-columns: repeat(4,1fr);
+    gap: 0; margin-top: 4rem;
+    border-top: 1px solid var(--border);
+    border-left: 1px solid var(--border);
+  }
+  .day-col {
+    border-right: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .day-header {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    background: rgba(200,244,58,0.05);
+  }
+  .day-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--lime); margin-bottom: 0.25rem;
+  }
+  .day-title { font-size: 0.95rem; font-weight: 700; }
+  .day-items { padding: 1rem; display: flex; flex-direction: column; gap: 0.5rem; }
+  .day-item {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    font-size: 0.78rem; line-height: 1.4;
+    position: relative;
+  }
+  .day-item-time {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem; color: var(--lime); margin-bottom: 0.2rem;
+    display: block;
+  }
+  .day-item.featured { border-color: rgba(200,244,58,0.4); background: rgba(200,244,58,0.06); }
+  .day-item.featured .day-item-time { color: var(--lime); }
+
+  /* ── CURRICULUM ── */
+  .curriculum-list { margin-top: 4rem; }
+  .curr-row {
+    display: grid; grid-template-columns: 60px 1fr 200px;
+    align-items: center; gap: 2rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+    transition: padding-left 0.25s;
+  }
+  .curr-row:first-child { border-top: 1px solid var(--border); }
+  .curr-row:hover { padding-left: 1rem; }
+  .curr-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem; color: var(--lime); opacity: 0.5;
+  }
+  .curr-name { font-size: 1rem; font-weight: 500; }
+  .curr-sub { font-size: 0.78rem; opacity: 0.45; margin-top: 0.2rem; }
+  .curr-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 0.35rem 0.75rem;
+    border: 1px solid var(--border); opacity: 0.6;
+    justify-self: end;
+  }
+  .curr-tag.hot { border-color: var(--orange); color: var(--orange); opacity: 1; }
+  .curr-tag.new { border-color: var(--lime); color: var(--lime); opacity: 1; }
+
+  /* ── WHO ── */
+  .who-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-top: 4rem; }
+  .who-side h3 {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase;
+    margin-bottom: 1.5rem; color: var(--lime);
+  }
+  .who-item {
+    display: flex; gap: 1rem; align-items: flex-start;
+    padding: 1rem 0; border-bottom: 1px solid var(--border);
+  }
+  .who-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--lime); flex-shrink: 0; margin-top: 5px;
+  }
+  .who-dot.no { background: transparent; border: 1px solid rgba(255,255,255,0.3); }
+  .who-item p { font-size: 0.9rem; line-height: 1.6; opacity: 0.7; }
+
+  /* ── MENTOR ── */
+  .mentors-grid {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 0; margin-top: 4rem;
+  }
+  .mentor-card {
+    padding: 2rem 2rem 2.5rem;
+    border: 1px solid var(--border);
+    border-right: none; border-bottom: none;
+    transition: background 0.25s;
+  }
+  .mentor-card:nth-child(3n) { border-right: 1px solid var(--border); }
+  .mentor-card:nth-last-child(-n+3) { border-bottom: 1px solid var(--border); }
+  .mentor-card:hover { background: rgba(255,255,255,0.02); }
+  .mentor-avatar {
+    width: 64px; height: 64px; border-radius: 50%;
+    background: var(--mid); margin-bottom: 1.25rem;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 1.1rem; font-weight: 700; color: var(--lime);
+    border: 1px solid var(--border);
+  }
+  .mentor-name { font-size: 1rem; font-weight: 700; margin-bottom: 0.25rem; }
+  .mentor-role { font-size: 0.78rem; color: var(--lime); margin-bottom: 0.75rem; font-family: 'Space Mono', monospace; }
+  .mentor-bio { font-size: 0.8rem; line-height: 1.6; opacity: 0.5; }
+
+  /* ── PRICING ── */
+  .pricing-grid {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 1.5rem; margin-top: 4rem;
+  }
+  .price-card {
+    padding: 2.5rem 2rem;
+    border: 1px solid var(--border);
+    position: relative;
+    transition: border-color 0.25s, transform 0.2s;
+  }
+  .price-card:hover { border-color: rgba(200,244,58,0.4); transform: translateY(-4px); }
+  .price-card.featured {
+    border-color: var(--lime);
+    background: rgba(200,244,58,0.04);
+  }
+  .price-badge {
+    position: absolute; top: -1px; left: 50%; transform: translateX(-50%);
+    background: var(--lime); color: var(--black);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 0.3rem 1rem;
+  }
+  .price-tier {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--lime); margin-bottom: 1rem;
+  }
+  .price-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 2.5rem; font-weight: 700;
+    line-height: 1; margin-bottom: 0.25rem;
+  }
+  .price-period { font-size: 0.78rem; opacity: 0.4; margin-bottom: 2rem; }
+  .price-features { list-style: none; display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 2rem; }
+  .price-features li {
+    font-size: 0.85rem; opacity: 0.7; padding-left: 1.25rem; position: relative;
+  }
+  .price-features li::before {
+    content: '→'; position: absolute; left: 0;
+    font-family: 'Space Mono', monospace; color: var(--lime);
+  }
+  .price-features li.no { opacity: 0.3; }
+  .price-features li.no::before { content: '—'; color: inherit; }
+  .btn-block {
+    display: block; width: 100%; text-align: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.78rem; font-weight: 700; letter-spacing: 0.06em;
+    padding: 0.9rem;
+    background: transparent; color: var(--white);
+    border: 1px solid var(--border);
+    cursor: crosshair;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .btn-block:hover { border-color: var(--lime); color: var(--lime); }
+  .price-card.featured .btn-block {
+    background: var(--lime); color: var(--black); border-color: var(--lime);
+  }
+  .price-card.featured .btn-block:hover { background: var(--lime-dark); }
+
+  /* ── FAQ ── */
+  .faq-list { margin-top: 3rem; }
+  .faq-item { border-bottom: 1px solid var(--border); }
+  .faq-q {
+    width: 100%; background: none; border: none; color: var(--white);
+    padding: 1.5rem 0;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 0.95rem; font-weight: 500;
+    cursor: crosshair; text-align: left;
+    font-family: 'Noto Sans KR', sans-serif;
+  }
+  .faq-q .icon {
+    font-family: 'Space Mono', monospace;
+    font-size: 1.2rem; color: var(--lime);
+    transition: transform 0.3s; flex-shrink: 0;
+  }
+  .faq-item.open .faq-q .icon { transform: rotate(45deg); }
+  .faq-a {
+    font-size: 0.875rem; line-height: 1.8; opacity: 0.55;
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.4s ease, padding 0.3s;
+  }
+  .faq-item.open .faq-a { max-height: 400px; padding-bottom: 1.5rem; }
+
+  /* ── CTA FOOTER ── */
+  .cta-footer {
+    padding: 8rem 2.5rem;
+    text-align: center;
+    position: relative; overflow: hidden;
+  }
+  .cta-footer::before {
+    content: '';
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,244,58,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .cta-big {
+    font-family: 'Space Mono', monospace;
+    font-size: clamp(2.5rem, 7vw, 5rem);
+    font-weight: 700; line-height: 1.05;
+    margin-bottom: 1.5rem;
+  }
+  .cta-big span { color: var(--lime); }
+  .cta-sub { font-size: 1rem; opacity: 0.5; margin-bottom: 3rem; }
+  .deadline {
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--orange); margin-top: 2rem;
+  }
+  .deadline-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--orange); animation: blink 1s infinite; }
+
+  footer {
+    padding: 2rem 2.5rem;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid var(--border);
+    font-family: 'Space Mono', monospace;
+    font-size: 0.65rem; letter-spacing: 0.1em; opacity: 0.3;
+  }
+
+  /* ── ANIMATIONS ── */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+
+  @media(max-width:900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { border-top: 1px solid var(--border); border-right: none; }
+    .what-grid, .days-grid, .mentors-grid, .pricing-grid { grid-template-columns: 1fr; }
+    .days-grid { grid-template-columns: 1fr 1fr; }
+    .who-cols { grid-template-columns: 1fr; }
+    .curr-row { grid-template-columns: 40px 1fr; }
+    .curr-tag { display: none; }
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { display: none; }
+    section { padding: 4rem 1.25rem; }
+    .hero-left, .hero-right { padding: 4rem 1.25rem; }
+    .mentor-card { border-right: 1px solid var(--border) !important; }
+    .price-card.featured { border-color: var(--lime); }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">VIBE CAMP</div>
+  <div class="nav-links">
+    <a href="#schedule">일정</a>
+    <a href="#curriculum">커리큘럼</a>
+    <a href="#pricing">가격</a>
+    <a href="#faq">FAQ</a>
+  </div>
+  <a href="#pricing" class="nav-cta">지금 신청 →</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge"><span></span> 2025 SUMMER — 모집 중</div>
+    <h1 class="hero-title">
+      <span class="stroke">VIBE</span>
+      <span class="accent">CODING</span>
+      CAMP
+    </h1>
+    <p class="hero-desc">
+      AI와 함께 코딩하는 법을 3박 4일 만에 완전히 바꿉니다.<br>
+      바이브코딩의 감각을 몸에 새기는 가장 강렬한 방법.
+    </p>
+    <div class="hero-cta-group">
+      <a href="#pricing" class="btn-primary">신청하기</a>
+      <a href="#schedule" class="btn-secondary">일정 보기</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="stat-block">
+      <div>
+        <div class="stat-num">3박 4일</div>
+        <div class="stat-label">몰입 집중 과정</div>
+      </div>
+      <div class="stat-sub">제주·강원 리조트</div>
+    </div>
+    <div class="stat-block">
+      <div>
+        <div class="stat-num">20명</div>
+        <div class="stat-label">소수 정예 모집</div>
+      </div>
+      <div class="stat-sub">멘토 1:5 비율</div>
+    </div>
+    <div class="stat-block">
+      <div>
+        <div class="stat-num">12개</div>
+        <div class="stat-label">실전 프로젝트</div>
+      </div>
+      <div class="stat-sub">포트폴리오 완성</div>
+    </div>
+    <div class="stat-block">
+      <div>
+        <div class="stat-num">97%</div>
+        <div class="stat-label">수료생 만족도</div>
+      </div>
+      <div class="stat-sub">2024 기수 기준</div>
+    </div>
+  </div>
+  <div class="scroll-hint">
+    <div class="scroll-line"></div>
+    SCROLL
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>AI 페어 프로그래밍</span><span class="highlight">★ VIBE CODING</span><span>Claude / GPT-4o</span><span class="highlight">★ 3박 4일</span><span>풀스택 개발</span><span class="highlight">★ 소수 정예</span><span>Cursor IDE</span><span class="highlight">★ 실전 프로젝트</span><span>프롬프트 엔지니어링</span><span class="highlight">★ 포트폴리오</span>
+    <span>AI 페어 프로그래밍</span><span class="highlight">★ VIBE CODING</span><span>Claude / GPT-4o</span><span class="highlight">★ 3박 4일</span><span>풀스택 개발</span><span class="highlight">★ 소수 정예</span><span>Cursor IDE</span><span class="highlight">★ 실전 프로젝트</span><span>프롬프트 엔지니어링</span><span class="highlight">★ 포트폴리오</span>
+  </div>
+</div>
+
+<!-- WHAT -->
+<section id="about">
+  <div class="reveal">
+    <div class="section-label">// 바이브코딩이란</div>
+    <h2 class="section-title">코딩의 감각이<br>바뀌는 순간</h2>
+  </div>
+  <div class="what-grid reveal" style="transition-delay:0.1s">
+    <div class="what-card">
+      <div class="what-num">01</div>
+      <div class="what-icon">⚡</div>
+      <h3>AI와 함께 흐르는 코딩</h3>
+      <p>Claude, GPT-4o와 실시간으로 페어 프로그래밍. 막히는 순간 없이 아이디어가 코드가 되는 감각을 익힙니다.</p>
+    </div>
+    <div class="what-card">
+      <div class="what-num">02</div>
+      <div class="what-icon">🎯</div>
+      <h3>몰입이 만드는 도약</h3>
+      <p>3박 4일, 외부와 단절된 환경에서 오직 코딩만. 일반 과정 3개월 분량의 성장을 압축 경험합니다.</p>
+    </div>
+    <div class="what-card">
+      <div class="what-num">03</div>
+      <div class="what-icon">🏗️</div>
+      <h3>실제 작동하는 프로덕트</h3>
+      <p>수료 시 배포 가능한 서비스 1개 완성. 이론이 아닌 실전으로 검증된 스킬셋을 가져갑니다.</p>
+    </div>
+    <div class="what-card">
+      <div class="what-num">04</div>
+      <div class="what-icon">🤝</div>
+      <h3>같은 감각의 동료들</h3>
+      <p>바이브코딩을 진지하게 탐구하는 20명의 동료. 캠프 이후로도 이어지는 커뮤니티와 네트워크.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SCHEDULE -->
+<section id="schedule" class="schedule">
+  <div class="reveal">
+    <div class="section-label">// 4일 일정</div>
+    <h2 class="section-title">DAY BY DAY</h2>
+  </div>
+  <div class="days-grid reveal" style="transition-delay:0.15s">
+    <!-- Day 1 -->
+    <div class="day-col">
+      <div class="day-header">
+        <div class="day-tag">Day 01</div>
+        <div class="day-title">감각 깨우기</div>
+      </div>
+      <div class="day-items">
+        <div class="day-item">
+          <span class="day-item-time">10:00</span>
+          오리엔테이션 & 팀 빌딩
+        </div>
+        <div class="day-item featured">
+          <span class="day-item-time">13:00</span>
+          바이브코딩 철학 & AI 도구 셋업
+        </div>
+        <div class="day-item">
+          <span class="day-item-time">15:00</span>
+          Cursor IDE 마스터 클래스
+        </div>
+        <div class="day-item">
+          <span class="day-item-time">17:00</span>
+          첫 번째 핵심 프롬프트 실습
+        </div>
+        <div class="day-item">
+          <span class="day-item-time">20:00</span>
+          저녁 코딩 세션 (선택)
+        </div>
+      </div>
+    </div>
+    <!-- Day 2 -->
+    <div class="day-col">
+      <div class="day-header">
+        <div class="day-tag">Day 02</div>
+        <div class="day-title">빌드 스프린트</div>
+      </div>
+      <div class="day-items">
+        <div class="day-item">
+          <span class="day-item-time">09:00</span>
+          아침 스탠드업 & 계획 수립
+        </div>
+        <div class="day-item featured">
+          <span class="day-item-time">10:00</span>
+          풀스택 스프린트 Day 1
+        </div>
+        <div class="day-item">
+          <span class="day-item-time">14:00</span>
+          AI 에이전트 활용 심화
+        </div>
+        <div class="day-item">
+          <span class="day-item-time">16:00</span>
+          코드 리뷰 & 피드백 루프
+        </div>
+        <div class="day-item">
+          <span class="day-item-time">19:00</span>
+          멘토 1:1 세션
+        </div>
+      </div>
+    </div>
+    <!-- Day 3 -->
+    <div class="day-col">
+      <div class="day-header">
+        <div class="day-tag">Day 03</div>
+        <div class="day-title">딥 다이브</div>
+      </div>
+      <div class="day-items">
+        <div class="day-item">
+          <span class="day-item-time">09:00</span>
+          어제 학습 회고 & 개선
+        </div>
+        <div class="day-item featured">
+          <span class="day-item-time">10:00</span>
+          풀스택 스프린트 Day 2
+        </div>
+        <div class="day-item">
+          <span class="day-item-time">14:00</span>
+          API 연동 & 배포 워크샵
+        </div>
+        <div class="day-item">
+          <span class="day-item-time">17:00</span>
+          프로덕트 피칭 연습
+        </div>
+        <div class="day-item">
+          <span class="day-item-time">20:00</span>
+          캠프파이어 네트워킹
+        </div>
+      </div>
+    </div>
+    <!-- Day 4 -->
+    <div class="day-col">
+      <div class="day-header">
+        <div class="day-tag">Day 04</div>
+        <div class="day-title">데모 데이</div>
+      </div>
+      <div class="day-items">
+        <div class="day-item">
+          <span class="day-item-time">09:00</span>
+          최종 마무리 코딩
+        </div>
+        <div class="day-item featured">
+          <span class="day-item-time">13:00</span>
+          🎤 데모 데이 발표
+        </div>
+        <div class="day-item">
+          <span class="day-item-time">15:00</span>
+          포트폴리오 사진 & 영상 촬영
+        </div>
+        <div class="day-item">
+          <span class="day-item-time">16:00</span>
+          수료증 수여 & 수료식
+        </div>
+        <div class="day-item">
+          <span class="day-item-time">17:00</span>
+          해산
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CURRICULUM -->
+<section id="curriculum">
+  <div class="reveal">
+    <div class="section-label">// 무엇을 배우나</div>
+    <h2 class="section-title">커리큘럼</h2>
+  </div>
+  <div class="curriculum-list reveal" style="transition-delay:0.1s">
+    <div class="curr-row">
+      <div class="curr-num">01</div>
+      <div>
+        <div class="curr-name">바이브코딩 철학과 마인드셋</div>
+        <div class="curr-sub">AI를 파트너로 쓰는 법, 흐름을 끊지 않는 개발 리듬</div>
+      </div>
+      <div class="curr-tag">Mindset</div>
+    </div>
+    <div class="curr-row">
+      <div class="curr-num">02</div>
+      <div>
+        <div class="curr-name">Cursor IDE 완전 정복</div>
+        <div class="curr-sub">Composer, Agent, Chat 모드별 효과적인 사용법</div>
+      </div>
+      <div class="curr-tag hot">HOT</div>
+    </div>
+    <div class="curr-row">
+      <div class="curr-num">03</div>
+      <div>
+        <div class="curr-name">프롬프트 엔지니어링 실전</div>
+        <div class="curr-sub">코드 생성, 디버깅, 리팩터링에 최적화된 프롬프트</div>
+      </div>
+      <div class="curr-tag">Prompt</div>
+    </div>
+    <div class="curr-row">
+      <div class="curr-num">04</div>
+      <div>
+        <div class="curr-name">풀스택 AI 앱 빌드</div>
+        <div class="curr-sub">Next.js + Supabase + Vercel로 서비스 0→1</div>
+      </div>
+      <div class="curr-tag hot">HOT</div>
+    </div>
+    <div class="curr-row">
+      <div class="curr-num">05</div>
+      <div>
+        <div class="curr-name">API 연동 & 자동화</div>
+        <div class="curr-sub">Anthropic API, OpenAI API, Zapier 등 실전 연동</div>
+      </div>
+      <div class="curr-tag">Integration</div>
+    </div>
+    <div class="curr-row">
+      <div class="curr-num">06</div>
+      <div>
+        <div class="curr-name">AI 에이전트 기초</div>
+        <div class="curr-sub">멀티스텝 태스크를 처리하는 에이전트 설계 패턴</div>
+      </div>
+      <div class="curr-tag new">NEW</div>
+    </div>
+    <div class="curr-row">
+      <div class="curr-num">07</div>
+      <div>
+        <div class="curr-name">배포 & 프로덕션 운영</div>
+        <div class="curr-sub">Vercel, Railway, GitHub Actions CI/CD 실습</div>
+      </div>
+      <div class="curr-tag">DevOps</div>
+    </div>
+    <div class="curr-row">
+      <div class="curr-num">08</div>
+      <div>
+        <div class="curr-name">포트폴리오 & 데모 데이</div>
+        <div class="curr-sub">실제 배포된 서비스로 만드는 강력한 포트폴리오</div>
+      </div>
+      <div class="curr-tag new">NEW</div>
+    </div>
+  </div>
+</section>
+
+<!-- WHO -->
+<section id="who">
+  <div class="reveal">
+    <div class="section-label">// 참가 대상</div>
+    <h2 class="section-title">이런 분들을<br>찾습니다</h2>
+  </div>
+  <div class="who-cols reveal" style="transition-delay:0.1s">
+    <div class="who-side">
+      <h3>✓ 이런 분에게 최적</h3>
+      <div class="who-item">
+        <div class="who-dot"></div>
+        <p>코딩 기초는 있지만 AI 도구를 제대로 활용 못 하는 개발자</p>
+      </div>
+      <div class="who-item">
+        <div class="who-dot"></div>
+        <p>비개발자지만 AI로 아이디어를 직접 구현하고 싶은 창업가·기획자</p>
+      </div>
+      <div class="who-item">
+        <div class="who-dot"></div>
+        <p>사이드 프로젝트를 완성하지 못하고 계속 미루는 분</p>
+      </div>
+      <div class="who-item">
+        <div class="who-dot"></div>
+        <p>바이브코딩을 독학했지만 체계적인 방법론이 필요한 분</p>
+      </div>
+      <div class="who-item">
+        <div class="who-dot"></div>
+        <p>포트폴리오에 실제 배포된 프로덕트가 필요한 취업 준비생</p>
+      </div>
+    </div>
+    <div class="who-side">
+      <h3>✗ 미리 알아두세요</h3>
+      <div class="who-item">
+        <div class="who-dot no"></div>
+        <p>완전 코딩 비경험자 — 최소 HTML/CSS 기초 수준은 필요합니다</p>
+      </div>
+      <div class="who-item">
+        <div class="who-dot no"></div>
+        <p>리조트 휴가를 기대하신다면 — 하루 10시간 이상 코딩합니다</p>
+      </div>
+      <div class="who-item">
+        <div class="who-dot no"></div>
+        <p>수동적 강의 수강을 원하신다면 — 85%가 직접 만드는 실습입니다</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENTORS -->
+<section id="mentors">
+  <div class="reveal">
+    <div class="section-label">// 함께하는 멘토</div>
+    <h2 class="section-title">현장 멘토</h2>
+  </div>
+  <div class="mentors-grid reveal" style="transition-delay:0.1s">
+    <div class="mentor-card">
+      <div class="mentor-avatar">JH</div>
+      <div class="mentor-name">김재현</div>
+      <div class="mentor-role">Lead Instructor</div>
+      <div class="mentor-bio">전 카카오 개발자. Cursor IDE 커뮤니티 운영자. 바이브코딩 유튜브 채널 구독자 5만+. AI 개발 도구 전도사.</div>
+    </div>
+    <div class="mentor-card">
+      <div class="mentor-avatar">SY</div>
+      <div class="mentor-name">이소연</div>
+      <div class="mentor-role">AI Product Lead</div>
+      <div class="mentor-bio">스타트업 CTO 출신. Anthropic API로 3개 SaaS 출시. 프롬프트 엔지니어링 워크샵 강사.</div>
+    </div>
+    <div class="mentor-card">
+      <div class="mentor-avatar">MW</div>
+      <div class="mentor-name">박민우</div>
+      <div class="mentor-role">Full-stack Mentor</div>
+      <div class="mentor-bio">Next.js + Supabase 스택 전문가. 비개발자 출신으로 바이브코딩으로 전환한 살아있는 증거.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="reveal">
+    <div class="section-label">// 가격 및 신청</div>
+    <h2 class="section-title">플랜 선택</h2>
+  </div>
+  <div class="pricing-grid reveal" style="transition-delay:0.1s">
+    <!-- Early -->
+    <div class="price-card">
+      <div class="price-tier">Early Bird</div>
+      <div class="price-num">₩890,000</div>
+      <div class="price-period">선착순 5명 한정 / VAT 별도</div>
+      <ul class="price-features">
+        <li>3박 4일 캠프 전체 참여</li>
+        <li>숙박 & 식사 포함</li>
+        <li>모든 강의 & 워크샵</li>
+        <li>수료증 발급</li>
+        <li class="no">1:1 멘토 세션 (2회)</li>
+        <li class="no">사후 커뮤니티 평생 이용</li>
+      </ul>
+      <a href="#" class="btn-block" onclick="alert('얼리버드는 마감되었습니다. 스탠다드 플랜으로 신청해주세요.')">신청하기</a>
+    </div>
+    <!-- Standard -->
+    <div class="price-card featured">
+      <div class="price-badge">가장 인기</div>
+      <div class="price-tier">Standard</div>
+      <div class="price-num">₩1,290,000</div>
+      <div class="price-period">일반 신청 / VAT 별도</div>
+      <ul class="price-features">
+        <li>3박 4일 캠프 전체 참여</li>
+        <li>숙박 & 식사 포함</li>
+        <li>모든 강의 & 워크샵</li>
+        <li>수료증 발급</li>
+        <li>1:1 멘토 세션 (2회)</li>
+        <li>사후 커뮤니티 평생 이용</li>
+      </ul>
+      <a href="#" class="btn-block" onclick="alert('신청 감사합니다! 담당자가 24시간 내 연락드립니다.')">신청하기</a>
+    </div>
+    <!-- Team -->
+    <div class="price-card">
+      <div class="price-tier">Team (3인+)</div>
+      <div class="price-num">₩990,000</div>
+      <div class="price-period">인당 / 3인 이상 팀 신청</div>
+      <ul class="price-features">
+        <li>3박 4일 캠프 전체 참여</li>
+        <li>숙박 & 식사 포함</li>
+        <li>모든 강의 & 워크샵</li>
+        <li>수료증 발급</li>
+        <li>1:1 멘토 세션 (2회)</li>
+        <li>사후 커뮤니티 평생 이용</li>
+      </ul>
+      <a href="mailto:hello@vibecamp.kr" class="btn-block">팀 문의하기</a>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section id="faq">
+  <div class="reveal">
+    <div class="section-label">// 자주 묻는 질문</div>
+    <h2 class="section-title">FAQ</h2>
+  </div>
+  <div class="faq-list reveal" style="transition-delay:0.1s">
+    <div class="faq-item">
+      <button class="faq-q">코딩을 전혀 몰라도 참가할 수 있나요?<span class="icon">+</span></button>
+      <div class="faq-a">최소한 HTML/CSS의 기본 개념(태그, 선택자 등)은 알고 계셔야 합니다. 완전 비경험자이신 경우, 사전에 프리코드캠프의 Responsive Web Design 커리큘럼(약 20시간)을 먼저 완료하시길 권장합니다. 자바스크립트 몰라도 괜찮습니다.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">노트북은 직접 가져와야 하나요?<span class="icon">+</span></button>
+      <div class="faq-a">네, 개인 노트북을 지참하셔야 합니다. macOS 또는 Windows 모두 가능하며, RAM 16GB 이상을 권장합니다. 사전에 Cursor IDE와 필요한 환경 설정 가이드를 발송해 드립니다.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">장소가 어디인가요?<span class="icon">+</span></button>
+      <div class="faq-a">2025 여름 기수는 제주도 서귀포시 소재 리조트에서 진행됩니다. 서울 출발 기준 교통 안내와 카풀 매칭 서비스를 제공합니다. 항공권은 개인 준비이며, 공항 픽업은 제공됩니다.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">환불 정책은 어떻게 되나요?<span class="icon">+</span></button>
+      <div class="faq-a">캠프 시작 14일 전까지 100% 환불, 7일 전까지 50% 환불, 그 이후에는 환불이 불가합니다. 단, 의료적 사유가 있는 경우 증빙 서류 제출 시 별도 협의 가능합니다.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">수료 후 취업 연계도 되나요?<span class="icon">+</span></button>
+      <div class="faq-a">직접적인 취업 보장 프로그램은 운영하지 않지만, 졸업생 네트워크와 협력사 채용 공고를 우선 공유합니다. 또한 수료생의 LinkedIn 프로필 최적화 세션과 포트폴리오 공개 지원을 제공합니다.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q">기업 교육으로 진행 가능한가요?<span class="icon">+</span></button>
+      <div class="faq-a">가능합니다. 5인 이상 팀 단위 기업 교육은 커스텀 커리큘럼과 별도 장소 섭외가 가능합니다. hello@vibecamp.kr로 문의 주시면 맞춤 제안을 드립니다.</div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FOOTER -->
+<section class="cta-footer reveal">
+  <div class="cta-big">지금 신청하면<br><span>3박 4일</span>이 바뀝니다</div>
+  <div class="cta-sub">20개 자리. 선착순 마감.</div>
+  <a href="#" class="btn-primary" style="font-size:1rem; padding:1.25rem 3rem;" onclick="alert('신청 감사합니다! 담당자가 24시간 내 연락드립니다.')">지금 신청하기 →</a>
+  <div class="deadline">
+    <span class="deadline-dot"></span>
+    조기 마감 예상 — 잔여 자리 7석
+  </div>
+</section>
+
+<footer>
+  <span>© 2025 VIBE CAMP. ALL RIGHTS RESERVED.</span>
+  <span>hello@vibecamp.kr</span>
+</footer>
+
+<script>
+  // Reveal animation
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => obs.observe(el));
+
+  // FAQ toggle
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.parentElement;
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+</script>
+</body>
+</html>
